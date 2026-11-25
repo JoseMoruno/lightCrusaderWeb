@@ -1,0 +1,522 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #121016;
+  color: #f0ece1;
+  font-family: system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* --- HEADER ESTILO HUD LIGHT CRUSADER --- */
+.lc-hud {
+  height: 128px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+  background-color: #b5121b;
+  border-bottom: 3px solid #3b0508;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.lc-title-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 20px;
+  background: linear-gradient(180deg, #c91822 0%, #8b0c13 100%);
+  border-right: 4px solid #f5b82e;
+  flex-shrink: 0;
+}
+
+.lc-logo-img {
+  max-height: 88px;
+  max-width: 240px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.65));
+}
+
+.lc-subtag {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #ffe07d;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 0 #2b0406;
+  white-space: nowrap;
+}
+
+.lc-hud-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Cenefa superior roja + textura dorada/naranja */
+.lc-top-trim {
+  height: 18px;
+  width: 100%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 245, 180, 0.35) 0px,
+      rgba(255, 245, 180, 0.35) 2px,
+      transparent 2px,
+      transparent 6px
+    ),
+    linear-gradient(
+      180deg,
+      #b5121b 0%,
+      #b5121b 32%,
+      #f7b529 32%,
+      #e67e15 78%,
+      #b84a09 100%
+    );
+  border-bottom: 2px solid #7a2c04;
+}
+
+.lc-hud-slots {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  background-color: #b5121b;
+}
+
+.lc-slot {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.lc-slot--life {
+  flex: 1.25;
+}
+
+.lc-slot--magic {
+  flex: 1.35;
+}
+
+.lc-screen {
+  flex: 1;
+  background-color: #04094e;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  overflow: hidden;
+}
+
+.lc-pillar {
+  width: 10px;
+  min-width: 10px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    90deg,
+    #b84a09 0%,
+    #ffd24c 45%,
+    #f39c12 75%,
+    #8f3404 100%
+  );
+  border-left: 1px solid #5c1e02;
+  border-right: 1px solid #5c1e02;
+}
+
+/* Dos filas de 10 orbes centradas */
+.lc-orbs-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.lc-orbs-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.lc-orb {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  border-radius: 50%;
+  border: 1px solid #02052b;
+  flex-shrink: 0;
+}
+
+.lc-orb.is-full {
+  background:
+    radial-gradient(circle at 32% 28%, #ffffff 0%, #ffffff 18%, transparent 20%),
+    radial-gradient(circle at 45% 45%, #8ae8ff 0%, #38b6ff 55%, #1269c4 100%);
+  box-shadow: 0 0 5px rgba(86, 214, 255, 0.55);
+}
+
+.lc-orb.is-empty {
+  background: radial-gradient(circle at 50% 50%, #01031f 0%, #050b38 100%);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.95);
+}
+
+/* Caja MAGIC: 4 elementos en línea + 99 a la derecha */
+.lc-screen--magic {
+  justify-content: space-between;
+  padding: 4px 12px;
+}
+
+.lc-magic-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lc-magic-icon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  flex-shrink: 0;
+}
+
+.lc-magic-count {
+  font-family: "Press Start 2P", monospace;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: 1px;
+  background: linear-gradient(180deg, #ffffff 0%, #fff29c 45%, #e6a817 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(1px 2px 0px #01031f);
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+/* Rótulos inferiores sobre rojo */
+.lc-caption {
+  height: 22px;
+  background-color: #b5121b;
+  color: #240407;
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 1px 0 rgba(255, 140, 140, 0.25);
+  white-space: nowrap;
+}
+
+/* --- LAYOUT INFERIOR --- */
+.main-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* --- SIDEBAR FIJA --- */
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  background-color: #1b1722;
+  border-right: 3px solid #4a3b52;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 14px;
+}
+
+.sidebar-header {
+  font-family: "Press Start 2P", monospace;
+  font-size: 11px;
+  color: #d48c46;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #352a3b;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.nav-btn {
+  background-color: #241e2e;
+  border: 2px solid #3c324a;
+  color: #d6cfc2;
+  padding: 12px;
+  text-align: left;
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+
+.nav-btn:hover {
+  background-color: #322940;
+  border-color: #d48c46;
+  color: #ffffff;
+}
+
+.nav-btn.active {
+  background-color: #6d1010;
+  border-color: #f7c548;
+  color: #ffffff;
+}
+
+.cursor-arrow {
+  font-size: 12px;
+  color: #f7c548;
+  opacity: 0;
+}
+
+.nav-btn.active .cursor-arrow,
+.nav-btn:hover .cursor-arrow {
+  opacity: 1;
+}
+
+.sidebar-footer {
+  border-top: 2px solid #352a3b;
+  padding-top: 12px;
+  font-family: "VT323", monospace;
+  font-size: 17px;
+  color: #9b8fa6;
+}
+
+.wip-badge {
+  display: inline-block;
+  margin-top: 6px;
+  background-color: #d48c46;
+  color: #18141c;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  padding: 4px 6px;
+}
+
+/* --- ÁREA DE CONTENIDO SCROLLABLE --- */
+.content-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px 40px;
+  background-color: #141118;
+}
+
+.content-container {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.section-header {
+  border-bottom: 2px solid #4a3b52;
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.section-header h2 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 18px;
+  color: #f7c548;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.section-subtitle {
+  font-family: "VT323", monospace;
+  font-size: 21px;
+  color: #a89bb3;
+}
+
+.cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.guide-card {
+  background-color: #1e1926;
+  border: 2px solid #392e47;
+  border-left: 5px solid #9e1b1b;
+  padding: 18px 22px;
+  border-radius: 4px;
+}
+
+.guide-card h3 {
+  font-size: 18px;
+  color: #f3d299;
+  margin-bottom: 8px;
+}
+
+.guide-card p {
+  line-height: 1.6;
+  color: #e0dbd1;
+  font-size: 16px;
+}
+
+/* --- CARTEL DE SECCIÓN EN CONSTRUCCIÓN --- */
+.construction-banner {
+  background-color: #1c1724;
+  border: 2px solid #4a3b52;
+  border-top: 4px solid #f7c548;
+  border-radius: 6px;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.55);
+}
+
+.construction-fountain {
+  width: 112px;
+  height: 112px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.7));
+}
+
+.construction-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 15px;
+  color: #f7c548;
+  letter-spacing: 1.5px;
+  text-shadow: 2px 2px 0 #120d18;
+}
+
+.construction-text {
+  font-family: "VT323", monospace;
+  font-size: 22px;
+  color: #c8bfd4;
+  max-width: 460px;
+  line-height: 1.3;
+}
+
+/* --- TABLA DE HECHIZOS EN MAGIA --- */
+.magic-table-wrapper {
+  margin-top: 22px;
+  overflow-x: auto;
+  border: 2px solid #4a3b52;
+  border-radius: 4px;
+  background-color: #1a1522;
+}
+
+.magic-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.magic-table th {
+  font-family: "Press Start 2P", monospace;
+  font-size: 10px;
+  color: #f7c548;
+  background-color: #281f36;
+  padding: 12px 14px;
+  border-bottom: 2px solid #4a3b52;
+  letter-spacing: 0.5px;
+}
+
+.magic-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #2e253d;
+  vertical-align: middle;
+}
+
+.magic-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.magic-table tbody tr:hover {
+  background-color: #231c2e;
+}
+
+.spell-name {
+  font-family: "VT323", monospace;
+  font-size: 21px;
+  color: #fff6d6;
+  white-space: nowrap;
+}
+
+.spell-elements {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.spell-elem-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  flex-shrink: 0;
+}
+
+.spell-desc {
+  font-size: 15px;
+  color: #e0dbd1;
+  line-height: 1.45;
+}
+
+/* --- CATEGORÍAS DE EQUIPAMIENTO --- */
+.equipment-sections {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.equipment-category-title {
+  font-family: "Press Start 2P", monospace;
+  font-size: 13px;
+  color: #f7c548;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.equipment-block .magic-table-wrapper {
+  margin-top: 0;
+}
+
+.equip-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.equip-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  flex-shrink: 0;
+}
